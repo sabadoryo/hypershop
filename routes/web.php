@@ -42,4 +42,8 @@ Route::group(['prefix'=>'api/v1'],function (){
 /** ADMIN PAGE */
 Route::group(['prefix'=>'admin'], function (){
    Route::get('/','AdminController@index')->name('admin.index');
+   Route::get('/edit/item/{id}','AdminController@editItem')->name('admin.item.edit');
+   Route::post('/update/item/{id}','AdminController@updateItem')->name('admin.item.update');
+   Route::get('/create/item','AdminController@createItem')->name('admin.item.create');
+   Route::post('/store/item','AdminController@storeItem')->name('admin.item.store');
 });

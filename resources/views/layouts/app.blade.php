@@ -25,8 +25,8 @@
     <div id="app" ng-controller="itemsController">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('home') }}">
-                    HyperShop
+                <a class="navbar-brand" href="{{ request()->is('admin*') ? route('admin.index') : route('home') }}">
+                    {{request()->is('admin*') ? 'HyperAdmin' : 'HyperShop'}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
+                            <li class="nav-item" style="{{ (request()->is('admin*')) ? 'display:none' : '' }}">
                                 <a id="" class="nav-link" href="{{route('card')}}">
                                     Card
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>

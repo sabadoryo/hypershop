@@ -32,7 +32,7 @@
     @endforeach
     </tbody>
 </table>
-<p>Total price is: {{$totalPrice}}</p>
+<p>Total price is: {{$totalPrice}}$</p>
 
 <h3>Your address: {{$address}}</h3>
 </body>

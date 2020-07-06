@@ -23,6 +23,7 @@ class CreateItemsTable extends Migration
             $table->string('image_url');
             $table->text('description');
             $table->float('price');
+            $table->boolean('in_stock')->nullable();
             $table->softDeletes();
 
             $table->foreign('category_id')->references('id')->on('categories');

@@ -12,6 +12,11 @@ use function Sodium\add;
 
 class CheckoutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         if(!Session::has('cart')){
