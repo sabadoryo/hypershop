@@ -65,7 +65,7 @@
 
                 </div>
                 <div class="row" style="margin-top:20px;" ng-if="items.length>0">
-                    <div class="card col-md-4" style="width: 18rem;" ng-repeat="item in items | filter: myFilter">
+                    <div class="card col-md-4" style="width: 18rem;" ng-repeat="item in items | filter: myFilter" ng-if="item.in_stock">
                         <img ng-src="<%= item.image_url %>" class="card-img-top" height="250" alt="<%=item.title%>">
                         <div class="card-body">
                             <div class="row">

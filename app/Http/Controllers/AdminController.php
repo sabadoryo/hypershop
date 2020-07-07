@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Category;
 use App\Item;
+use App\Order;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,7 +19,9 @@ class AdminController extends Controller
     public function index()
     {
         $paginator = Item::paginate(5);
-        return view('admin.index',compact('paginator'));
+        $totalAmountOfItems = count(Item::all());
+        $totalAmountOfOrders = count(Order::all());
+        return view('admin.index',compact('paginator','totalAmountOfItems','totalAmountOfOrders'));
     }
 
     public function editItem($id)
@@ -74,11 +77,33 @@ class AdminController extends Controller
 
         ]);
 
-        $data = $request->input();
-        $item = (new Item())->create($data);
+        $item = (new Item())->create($validatedData);
 
         if($item)
             return redirect()->route('admin.item.edit',$item->id)->with(['success'=>'Successfully created']);
+        else
+            return back()->withErrors(['msg'=>'Save error'])->withInput();
+    }
+
+    public function createCategory()
+    {
+        $category = new Category();
+
+        return view('admin.category_edit',compact('category'));
+    }
+
+    public function storeCategory(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required | min:5',
+            'description' => 'required | min: 15 | max:255',
+            'slug' => 'required',
+        ]);
+
+        $category = (new Category())->create($validatedData);
+
+        if($category)
+            return redirect()->route('admin.index')->with(['success'=>'Successfully created']);
         else
             return back()->withErrors(['msg'=>'Save error'])->withInput();
     }
